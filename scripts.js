@@ -24,7 +24,7 @@ const handleClick = (element) => {
   //  checking to see if the square clicked has anything in it, if not continue
   if(!document.getElementById(element.id).innerHTML){
     addMarker(element.id)
-  }
+  } 
 }
 
 // this function places the "currentMarker" inside the HTML element that was clicked and calls the "changeMarker" function.
@@ -35,9 +35,17 @@ const addMarker = (id) => {
   console.log(`Therefore, a  "${currentMarker}"  should be placed in the square with the id:  ${id}`)
   
 
-  let element = document.getElementById(id).innerHTML = currentMarker;
+  document.getElementById(id).innerHTML = currentMarker;
+  
+  const row = parseInt(id.charAt(0));
+
+  const column = parseInt(id.charAt(2));
+
+  board[row][column] = currentMarker
+
   checkForWin()
 }
+
 
 // This "changeMarker" function changes "X" to "O" in the "currentMarker" variable or "O" to "X"
 const changeMarker = () => {
@@ -55,15 +63,8 @@ const resetBoard = () => {
   // @TODO-3: To make your "Restart" button work you'll need to build a line of code here that:
       // collects all of the "td" elements into an HTML Collection: https://www.w3schools.com/jsref/dom_obj_htmlcollection.asp  
     const squares = document.getElementsByTagName("TD")
-  // @TODO-3.5: MIX & MATCH, You will need the following pieces of code to build that line:
-  // squares
-  // .getElementsByTagName("TD")
-  // =
-  // document
-  // const
   
-  // loops over the HTML Collection of TDs and clears out the Xs and Os
-  for (i=0; i < squares.length; i++) {
+    for (i=0; i < squares.length; i++) {
 
     // will log out the id of each square as it loops over them.
     console.log(squares[i].id)
@@ -75,10 +76,11 @@ const resetBoard = () => {
 
 const checkForWin = () => {
   if(horizontalWin() || verticalWin() || diagonalWin()) {
-    window.alert(`Player ${currentMarker} won!`)
+    window.alert(`Player ${currentMarker} You Won!`)
   } else {
     changeMarker()
   }
+
 }
 
 const horizontalWin = () => {
@@ -115,5 +117,5 @@ const diagonalWin = () => {
   || (board[0][2] == "O" && board[1][1] == "O" && board[2][1] == "O"))
   
   { return true
-}
+} 
 }
